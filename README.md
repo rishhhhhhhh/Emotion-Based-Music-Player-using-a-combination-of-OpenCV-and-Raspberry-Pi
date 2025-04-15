@@ -32,7 +32,7 @@ The project uses a folder named `static` which contains trained models and impor
 **This folder is not included in the repository due to size limits.**  
 You can download it separately from the link below:
 
-🔗 [Download the `static` folder from Google Drive](PASTE_YOUR_DRIVE_LINK_HERE)
+🔗 [Download the `static` folder from Google Drive](https://drive.google.com/drive/folders/12En03aTDXJVTqJPLyHkhIwt1gIOuvRF6?usp=sharing)
 
 After downloading, place the `tratic` folder inside the root directory of the project.
 
