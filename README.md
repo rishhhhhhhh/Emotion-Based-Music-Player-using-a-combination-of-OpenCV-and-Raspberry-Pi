@@ -3,6 +3,12 @@
 # Emotion-Based Music Player 🎵😊
 
 This project is an innovative Emotion-Based Music Player developed using a **Raspberry Pi**. It captures the user's image, detects their emotion, and plays a song that matches the mood.
+![Screenshot 2025-04-01 044744](https://github.com/user-attachments/assets/0f600087-78b4-4034-99ba-f5b6b978b187)
+
+![Screenshot 2025-04-01 045923](https://github.com/user-attachments/assets/994d085b-2c55-4ad6-8656-0ef44febce8f)
+
+
+
 
 ## 📌 Features
 
@@ -35,6 +41,9 @@ After downloading, place the `tratic` folder inside the root directory of the pr
 - Camera Module
 - Speaker
 - Python 3.x
+![Screenshot 2025-03-21 231406](https://github.com/user-attachments/assets/2d2d4d88-ab12-4cc7-a337-93e681ccfabe)
+![Screenshot 2025-03-21 221102](https://github.com/user-attachments/assets/2d7089a8-a09b-4488-ace4-96c6ec6c33dc)
+
 
 ### Python Libraries Required:
 - opencv-python
