@@ -5,7 +5,8 @@
 This project is an innovative Emotion-Based Music Player developed using a **Raspberry Pi**. It captures the user's image, detects their emotion, and plays a song that matches the mood.
 ![Screenshot 2025-04-01 044744](https://github.com/user-attachments/assets/0f600087-78b4-4034-99ba-f5b6b978b187)
 
-![Screenshot 2025-04-01 045923](https://github.com/user-attachments/assets/994d085b-2c55-4ad6-8656-0ef44febce8f)
+![Screenshot 2025-04-01 040100](https://github.com/user-attachments/assets/cc1f4f30-f8f4-43e1-8b03-ae99e879fe99)
+
 
 
 
