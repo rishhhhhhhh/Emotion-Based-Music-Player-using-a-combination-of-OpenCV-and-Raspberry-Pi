@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Now Playing{% endblock %}
+
+{% block content %}
+<div class="relative">
+  <!-- Navbar Row with Logo Left and About Us Right -->
+  <div class="flex justify-between items-center px-6 py-4">
+    <img src="{{ url_for('static', filename='resonate_logo.png') }}" alt="Resonate Logo" class="w-28">
+    <button onclick="toggleModal()" class="bg-gradient-to-r from-green-400 via-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium shadow hover:brightness-110 transition">
+      About Us
+    </button>
+  </div>
+
+  <div class="flex flex-col items-center justify-center p-6">
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-xl w-full max-w-xl text-center">
+      <h1 class="text-3xl font-bold mb-1">Now Playing</h1>
+      <h2 class="text-lg text-gray-400 mb-6">{{ mood.capitalize() }}</h2>
+
+      {% if song %}
+      <div class="flex flex-col items-center gap-4">
+        <img id="albumArt" src="{{ url_for('static', filename='album_images/default.jpg') }}" alt="Album Art" class="album-art shadow-lg">
+
+        <p id="songTitle" class="text-xl font-semibold text-white">{{ song.split('/')[-1].replace('.mp3', '') }}</p>
+
+        <audio id="audioPlayer" autoplay>
+          <source id="audioSource" src="{{ song }}" type="audio/mpeg">
+        </audio>
+
+        <div class="flex items-center gap-3 w-full">
+          <span id="currentTime" class="text-sm">0:00</span>
+          <input type="range" id="seekbar" min="0" max="{{ duration }}" value="0" class="flex-grow">
+          <span id="totalTime" class="text-sm">0:00</span>
+        </div>
+
+        <div class="flex items-center justify-center gap-3">
+          <label for="volume" class="text-xl">🔊</label>
+          <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5">
+        </div>
+
+        <div class="flex gap-4 mt-4">
+          <button onclick="prevSong()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">⏮</button>
+          <button id="playPauseBtn" onclick="togglePlayPause()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">⏸</button>
+          <button onclick="nextSong()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">⏭</button>
+          <button onclick="stopMusic()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">⏹</button>
+        </div>
+      </div>
+      {% else %}
+      <p class="text-gray-300 mb-6">No songs available for this mood.</p>
+      <a href="{{ url_for('home') }}" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg shadow">Go Back</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Modal Script Fix -->
+<script>
+  function toggleModal() {
+    const modal = document.getElementById("aboutModal");
+    if (modal.classList.contains("hidden")) {
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    } else {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+  }
+</script>
+
+<script>
+  const audioPlayer = document.getElementById("audioPlayer");
+  const seekbar = document.getElementById("seekbar");
+
+  function togglePlayPause() {
+    fetch("/toggle_play", { method: "POST" })
+      .then(res => res.json())
+      .then(data => {
+        const btn = document.getElementById("playPauseBtn");
+        if (data.status === "playing") {
+          audioPlayer.play();
+          btn.innerHTML = "⏸";
+        } else {
+          audioPlayer.pause();
+          btn.innerHTML = "▶";
+        }
+      });
+  }
+
+  function nextSong() {
+    fetch("/next_song", { method: "POST" })
+      .then(res => res.json())
+      .then(data => updateSong(data.song, data.duration, data.album_image));
+  }
+
+  function prevSong() {
+    fetch("/prev_song", { method: "POST" })
+      .then(res => res.json())
+      .then(data => updateSong(data.song, data.duration, data.album_image));
+  }
+
+  function stopMusic() {
+    fetch("/stop", { method: "POST" }).then(() => window.location.href = "/");
+  }
+
+  function updateSong(songPath, duration, albumImage) {
+    document.getElementById("audioSource").src = songPath;
+    audioPlayer.load();
+    audioPlayer.play();
+    document.getElementById("songTitle").innerText = songPath.split("/").pop().replace(".mp3", "");
+    seekbar.max = duration;
+    seekbar.value = 0;
+    document.getElementById("playPauseBtn").innerHTML = "⏸";
+    document.getElementById("albumArt").src = albumImage || "/static/album_images/default.jpg";
+  }
+</script>
+{% endblock %}

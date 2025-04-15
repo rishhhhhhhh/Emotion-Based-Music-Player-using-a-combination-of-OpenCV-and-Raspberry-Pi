@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Resonate{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .modal { display: none; }
+    .logo-img { width: 120px; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
+
+  <!-- 🧱 Page Content -->
+  <div class="p-4">
+    {% block content %}{% endblock %}
+  </div>
+
+  <script>
+    function toggleModal() {
+      const modal = document.getElementById("aboutModal");
+      modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+</body>
+</html>

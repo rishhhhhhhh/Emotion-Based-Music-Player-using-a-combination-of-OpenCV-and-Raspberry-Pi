@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Title Here{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emotion-Based Music Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white flex flex-col justify-center items-center p-6 relative">
+
+    <!-- 🔥 Resonate Logo - Top Left -->
+    <img src="{{ url_for('static', filename='resonate_logo.png') }}" alt="Resonate Logo" class="absolute top-4 left-6 w-28">
+  
+  <div class="text-center">
+    <h1 class="text-4xl font-bold mb-2">🎧 Emotion-Based Music Player</h1>
+    <p class="text-gray-400 mb-8 text-lg">Capture your vibe & let the music take over</p>
+
+    {% if image_url %}
+    <img src="{{ image_url }}" alt="Captured Image" class="rounded-2xl shadow-xl border-4 border-gray-700 w-72 h-72 object-cover mx-auto mb-6">
+    {% endif %}
+
+    {% if emotion %}
+    <h2 class="text-2xl font-semibold mb-4">Your Emotion: <span class="text-yellow-400">{{ emotion }}</span></h2>
+    <p class="text-gray-300 mb-4">Would you like to enhance or alter your mood?</p>
+    <div class="flex flex-col md:flex-row justify-center gap-4">
+      <form action="/music/{{ emotion }}">
+        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow">Enhance</button>
+      </form>
+      <form action="/select_mood?current_mood={{ emotion }}">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow">Alter</button>
+      </form>
+    </div>
+    {% endif %}
+
+    <form action="/capture" method="post" class="mt-8">
+      <button class="bg-red-500 hover:bg-red-600 text-white font-bold text-lg px-6 py-3 rounded-full shadow-lg">🔁 Retake Image</button>
+    </form>
+  </div>
+
+</body>
+</html>
+{% endblock %}

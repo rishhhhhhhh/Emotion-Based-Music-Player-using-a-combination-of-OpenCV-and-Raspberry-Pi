@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | Resonate{% endblock %}
+
+{% block content %}
+<div class="relative">
+  <!-- Navbar Row with Logo Left and About Us Right -->
+  <div class="flex justify-between items-center px-6 py-4">
+    <img src="{{ url_for('static', filename='resonate_logo.png') }}" alt="Resonate Logo" class="w-28">
+    <button onclick="toggleModal()" class="bg-gradient-to-r from-green-400 via-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium shadow hover:brightness-110 transition">
+      About Us
+    </button>
+  </div>
+
+  <div class="text-center w-full max-w-xl mx-auto flex flex-col justify-center items-center min-h-[80vh]">
+    <h1 class="text-4xl font-bold mb-4">🎧 Emotion-Based Music Player</h1>
+    <p class="text-gray-400 mb-8 text-lg">Capture your emotion and let the music match your mood!</p>
+
+    <div class="rounded-xl overflow-hidden shadow-xl border-4 border-gray-700 mb-6">
+      <img src="{{ url_for('video_feed') }}" alt="Live Webcam Feed" class="w-full h-auto object-cover">
+    </div>
+
+    <form action="/capture" method="post">
+      <button class="bg-gradient-to-r from-green-400 via-green-500 to-emerald-600 hover:scale-105 hover:shadow-lg transition-all duration-300 px-8 py-3 text-lg font-semibold text-white rounded-full">
+        📸 Capture Emotion
+      </button>
+    </form>
+
+    <p class="text-sm text-gray-500 mt-6">Experience music like never before!</p>
+  </div>
+</div>
+
+<!-- 🧠 About Modal -->
+<div id="aboutModal" class="fixed inset-0 bg-black bg-opacity-70 hidden justify-center items-center z-50">
+  <div class="bg-gray-900 p-6 rounded-xl w-96 text-center relative">
+    <h2 class="text-2xl font-bold mb-4 text-white">About Resonate</h2>
+    <p class="text-gray-300 text-sm mb-4">
+      Resonate is an intelligent emotion-based music player that detects your emotion through facial expressions and plays music that matches or alters your mood. This project seamlessly integrates AI-powered emotion detection using deep learning with a curated music recommendation system. Our aim is to uplift, calm, or amplify your emotions through music — completely personalized and responsive to your face. Developed with ❤️ by passionate engineers blending AI and music. BY: Aditya,Aditya,Ekansh & Rishabh
+    </p>
+    <button onclick="toggleModal()" class="absolute top-2 right-4 text-gray-400 hover:text-red-400 text-lg">✖</button>
+  </div>
+</div>
+
+<!-- Modal Toggle Script -->
+<script>
+  function toggleModal() {
+    const modal = document.getElementById("aboutModal");
+    modal.classList.toggle("hidden");
+    modal.classList.toggle("flex");
+  }
+</script>
+{% endblock %}
